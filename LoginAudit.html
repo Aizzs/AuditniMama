@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System ni Mama</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Login Page -->
+        <div id="login-page" class="page active">
+            <div class="login-container">
+                <div class="login-box">
+                    <div class="login-header">
+                        <svg class="icon-large" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                        </svg>
+                        <h1>Audit ni Mama</h1>
+                        <p>Sales & Analytics Platform</p>
+                    </div>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Page -->
+        <div id="loading-page" class="page">
+            <div class="loading-container">
+                <div class="spinner"></div>
+                <p class="loading-text">Loading...</p>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page">
+            <nav class="navbar">
+                <div class="navbar-content">
+                    <div class="navbar-brand">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                        </svg>
+                        <span>Audit ni Mama</span>
+                    </div>
+                    <div class="navbar-right">
+                        <div class="datetime">
+                            <div class="datetime-row">
+                                <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                                <span id="current-date"></span>
+                            </div>
+                            <div class="datetime-row">
+                                <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span id="current-time"></span>
+                            </div>
+                        </div>
+                        <button class="btn btn-danger" onclick="logout()">
+                            <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                            </svg>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Total Items</h3>
+                            <svg class="icon-stat blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                            </svg>
+                        </div>
+                        <p class="stat-value" id="total-items">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Inventory Value</h3>
+                            <svg class="icon-stat green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <p class="stat-value" id="inventory-value">₱0.00</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Today's Sales</h3>
+                            <svg class="icon-stat purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                            </svg>
+                        </div>
+                        <p class="stat-value" id="today-sales">₱0.00</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3>Total Sales</h3>
+                            <svg class="icon-stat orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                        </div>
+                        <p class="stat-value" id="total-sales-count">0</p>
+                    </div>
+                </div>
+
+                <div class="menu-grid">
+                    <button class="menu-card" onclick="changePage('inventory')">
+                        <svg class="icon-menu blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                        </svg>
+                        <h2>Inventory Management</h2>
+                        <p>Add, edit, and manage your inventory items</p>
+                    </button>
+                    <button class="menu-card" onclick="changePage('pos')">
+                        <svg class="icon-menu green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <h2>Point of Sale</h2>
+                        <p>Process sales and checkout items</p>
+                    </button>
+                    <button class="menu-card" onclick="changePage('sales')">
+                        <svg class="icon-menu purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                        </svg>
+                        <h2>Sales Analytics</h2>
+                        <p>View sales reports and analytics</p>
+                    </button>
+                    <button class="menu-card" onclick="changePage('history')">
+                        <svg class="icon-menu orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <h2>Sales History</h2>
+                        <p>View complete sales transaction history</p>
+                    </button>
+                    <button class="menu-card" onclick="changePage('categories')">
+                        <svg class="icon-menu indigo" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                        <h2>Categories</h2>
+                        <p>Manage product categories</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Page -->
+        <div id="categories-page" class="page">
+            <nav class="navbar">
+                <div class="navbar-content">
+                    <button class="btn-back" onclick="changePage('dashboard')">← Back to Dashboard</button>
+                    <h1>Category Management</h1>
+                </div>
+            </nav>
+            <div class="container">
+                <div class="card">
+                    <h2>Add New Category</h2>
+                    <form id="category-form" class="form-inline">
+                        <input type="text" id="category-name" placeholder="Category Name" required>
+                        <button type="submit" class="btn btn-primary">
+                            <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                            Add
+                        </button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h2>Categories List</h2>
+                    <div id="categories-list" class="list-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory Page -->
+        <div id="inventory-page" class="page">
+            <nav class="navbar">
+                <div class="navbar-content">
+                    <button class="btn-back" onclick="changePage('dashboard')">← Back to Dashboard</button>
+                    <h1>Inventory Management</h1>
+                </div>
+            </nav>
+            <div class="container">
+                <button class="btn btn-primary mb-4" onclick="toggleInventoryForm()">
+                    <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Add New Item
+                </button>
+                <div id="inventory-form-container" class="card hidden">
+                    <h2 id="inventory-form-title">Add New Item</h2>
+                    <form id="inventory-form" class="form-grid">
+                        <div class="form-group">
+                            <label>Item Name</label>
+                            <input type="text" id="item-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="item-category" required>
+                                <option value="">Select Category</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" id="item-quantity" value="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Unit</label>
+                            <select id="item-unit">
+                                <option value="pcs">Pieces</option>
+                                <option value="oz">Ounces (oz)</option>
+                                <option value="g">Grams (g)</option>
+                                <option value="kg">Kilograms (kg)</option>
+                                <option value="l">Liters (l)</option>
+                                <option value="ml">Milliliters (ml)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Price (₱)</label>
+                            <input type="number" step="0.01" id="item-price" value="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Expiration Date</label>
+                            <input type="date" id="item-expiration">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Image URL</label>
+                            <input type="text" id="item-image" placeholder="https://example.com/image.jpg">
+                        </div>
+                        <div class="form-actions full-width">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" onclick="cancelInventoryForm()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card">
+                    <h2>Inventory Items</h2>
+                    <div id="inventory-list" class="inventory-grid"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- POS Page -->
+        <div id="pos-page" class="page">
+            <nav class="navbar">
+                <div class="navbar-content">
+                    <button class="btn-back" onclick="changePage('dashboard')">← Back to Dashboard</button>
+                    <h1>Point of Sale</h1>
+                </div>
+            </nav>
+            <div class="container">
+                <div class="pos-layout">
+                    <div class="pos-items card">
+                        <h2>Select Items</h2>
+                        <div id="pos-items-list" class="pos-grid"></div>
+                    </div>
+                    <div class="pos-cart card">
+                        <h2>Cart</h2>
+                        <div id="cart-items" class="cart-list"></div>
+                        <div class="cart-total">
+                            <h3>Total: <span id="cart-total">₱0.00</span></h3>
+                            <button class="btn btn-success btn-block" onclick="checkout()">Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sales Analytics Page -->
+        <div id="sales-page" class="page">
+            <nav class="navbar">
+                <div class="navbar-content">
+                    <button class="btn-back" onclick="changePage('dashboard')">← Back to Dashboard</button>
+                    <h1>Sales Analytics</h1>
+                </div>
+            </nav>
+            <div class="container">
+                <div class="card">
+                    <h2>Sales Summary</h2>
+                    <div id="sales-analytics" class="analytics-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sales History Page -->
+        <div id="history-page" class="page">
+            <nav class="navbar">
+                <div class="navbar-content">
+                    <button class="btn-back" onclick="changePage('dashboard')">← Back to Dashboard</button>
+                    <h1>Sales History</h1>
+                </div>
+            </nav>
+            <div class="container">
+                <div class="card">
+                    <h2>Transaction History</h2>
+                    <div id="history-list" class="history-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
